@@ -1,0 +1,2 @@
+serviceClass: formGWT.client.GreetingService
+path: F4EB7209BF473480CF0230911B51065B.gwt.rpc
