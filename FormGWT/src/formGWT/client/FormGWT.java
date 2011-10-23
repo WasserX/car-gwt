@@ -33,9 +33,9 @@ public class FormGWT implements EntryPoint {
 	private Button prevButton = new Button("Previous");
 	private Button nextButton = new Button("Next");
 	/*First Page*/
+	private Grid firstPageContent = new Grid(7, 2);
 	private TextBox nameField = new TextBox();
 	private TextBox lastNameField = new TextBox();
-	private DatePicker birthPicker = new DatePicker();
 	
 	private HorizontalPanel navPanel = new HorizontalPanel();
 	
@@ -63,36 +63,21 @@ public class FormGWT implements EntryPoint {
 	
 	//TODO: Deal with the change of pages.
 	private void drawFirstPage() {
-		Label birthLabel = new Label("Date of Birth:");
-		Label countryLabel = new Label("Birth Country:");
 		Label cityLabel = new Label("Hometown:");
 		Label genderLabel = new Label("Gender:");
 		Label mailLabel = new Label("E-mail Address:");
-
-		Grid content = new Grid(7, 2);
 	
-		content.setWidget(0, 0, new Label("Name:"));
-		content.setWidget(0, 1, nameField);
-		content.setWidget(1, 0, new Label("Last Name:"));
-		content.setWidget(1, 1, lastNameField);
-		RootPanel.get().add(content);		
+		firstPageContent.setWidget(0, 0, new Label("Name:"));
+		firstPageContent.setWidget(0, 1, nameField);
+		firstPageContent.setWidget(1, 0, new Label("Last Name:"));
+		firstPageContent.setWidget(1, 1, lastNameField);
+		firstPageContent.setWidget(2, 0, new Label("Date of Birth:"));
+		//content.setWidget(2,1, birthPicker);
+		firstPageContent.setWidget(3, 0, new Label("Birth Country:"));
 		
-		/*
-		 * Version Using Panels
-		VerticalPanel firstPagePanel = new VerticalPanel();
 		
-		HorizontalPanel namePanel = new HorizontalPanel();
-		namePanel.add(new Label("Name:"));
-		namePanel.add(nameField);
-		firstPagePanel.add(namePanel);
+		RootPanel.get().add(firstPageContent);		
 		
-		HorizontalPanel lastNamePanel = new HorizontalPanel();
-		lastNamePanel.add(new Label("Last Name:"));
-		lastNamePanel.add(lastNameField);
-		firstPagePanel.add(lastNamePanel);
-		
-		RootPanel.get().add(firstPagePanel);
-		 */
 	
 	}
 	
@@ -105,6 +90,6 @@ public class FormGWT implements EntryPoint {
 		navPanel.add(sendButton);
 		navPanel.add(nextButton);
 		
-		drawFirstPage();					
+		drawFirstPage();
 	}
 }
