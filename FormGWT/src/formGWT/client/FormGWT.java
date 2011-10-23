@@ -75,10 +75,6 @@ public class FormGWT implements EntryPoint {
 		//content.setWidget(2,1, birthPicker);
 		firstPageContent.setWidget(3, 0, new Label("Birth Country:"));
 		
-		
-		RootPanel.get().add(firstPageContent);		
-		
-	
 	}
 	
 	/**
@@ -91,5 +87,8 @@ public class FormGWT implements EntryPoint {
 		navPanel.add(nextButton);
 		
 		drawFirstPage();
+
+		RootPanel.get().add(firstPageContent);
+		
 	}
 }
