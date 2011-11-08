@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
@@ -32,11 +34,17 @@ public class FormGWT implements EntryPoint {
 	private Button prevButton = new Button("Previous");
 	private Button nextButton = new Button("Next");
 	private int PAGE = 1;
+	
 	//First Page
-	private Grid firstPageContent = new Grid(7, 2);
+	private Grid pageContent = new Grid(9, 2);
 	private TextBox nameField = new TextBox();
 	private TextBox lastNameField = new TextBox();
 	private TextBox birthField = new TextBox();
+	private ListBox birthCountryField = new ListBox();
+	private ListBox birthPlaceField = new ListBox();
+	private RadioButton maleRadioButton = new RadioButton("gender","Male");
+	private RadioButton femaleRadioButton = new RadioButton("gender","Female");
+	private TextBox emailField = new TextBox();
 	
 	private HorizontalPanel navPanel = new HorizontalPanel();
 	
@@ -67,11 +75,11 @@ public class FormGWT implements EntryPoint {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					firstPage(false);
-					//secondPage(true);
-					
+					updateView();
+					PAGE++;			
 				}
 			});
+			showFirstPage();
 			break;
 		case 2:
 			prevButton.setEnabled(true);
@@ -79,61 +87,94 @@ public class FormGWT implements EntryPoint {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					firstPage(true);
-					//secondPage(false);
+					updateView();
+					PAGE--;
 				}
 			});
-			nextButton.setEnabled(true);
+			nextButton.setEnabled(false);
 			nextButton.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					//secondPage(false);
-					//thirdPage(true);
+					updateView();
+					//PAGE++;
 				}
 			});
+			showSecondPage();
 			break;
 		case 3:
 			//TODO: Case 3
 			break;
 		}
-		
+		showNavigation();		
 	}
+	
+	private void showNavigation() {
+		navPanel.add(prevButton);
+		navPanel.add(nextButton);
+		RootPanel.get().add(navPanel);
+	}
+
 
 	
 	/**
 	 * Sets up the first page of the form.
-	 * @param state Shows or hides the content
 	 */
-	private void firstPage(boolean state) {
+	private void showFirstPage() {
 		Label cityLabel = new Label("Hometown:");
 		Label genderLabel = new Label("Gender:");
 		Label mailLabel = new Label("E-mail Address:");
 	
 		//Form contents
-		firstPageContent.setWidget(0, 0, new Label("Name:"));
-		firstPageContent.setWidget(0, 1, nameField);
-		firstPageContent.setWidget(1, 0, new Label("Last Name:"));
-		firstPageContent.setWidget(1, 1, lastNameField);
-		firstPageContent.setWidget(2, 0, new Label("Date of Birth:"));
-		firstPageContent.setWidget(2, 1, birthField);
-		firstPageContent.setWidget(3, 0, new Label("Birth Country:"));
+		pageContent.clear();
+		pageContent.setWidget(0, 0, new Label("First Page"));
+		pageContent.setWidget(1, 0, new Label("Name:"));
+		pageContent.setWidget(1, 1, nameField);
+		pageContent.setWidget(2, 0, new Label("Last Name:"));
+		pageContent.setWidget(2, 1, lastNameField);
+		pageContent.setWidget(3, 0, new Label("Date of Birth:"));
+		pageContent.setWidget(3, 1, birthField);
+		pageContent.setWidget(4, 0, new Label("Birth Country:"));
+		pageContent.setWidget(4, 1, birthCountryField);
+		pageContent.setWidget(5, 0, new Label("Birth Place:"));
+		pageContent.setWidget(5, 1, birthPlaceField);
+		pageContent.setWidget(6, 0, maleRadioButton);
+		pageContent.setWidget(6, 1, femaleRadioButton);
+		pageContent.setWidget(7, 0, new Label("E-mail:"));
+		pageContent.setWidget(7, 1, emailField);
 		
-		RootPanel.get().add(firstPageContent);
+		RootPanel.get().add(pageContent);
 		
-		PAGE = 1;
-		updateView();
+	}
+	
+	/**
+	 * Sets up the second page of the form.
+	 */
+	private void showSecondPage() {
+		Label cityLabel = new Label("Hometown:");
+		Label genderLabel = new Label("Gender:");
+		Label mailLabel = new Label("E-mail Address:");
+	
+		//Form contents
+		pageContent.clear();
+		pageContent.setWidget(0, 0, new Label("Second Page"));
+		pageContent.setWidget(1, 0, new Label("Name:"));
+		pageContent.setWidget(1, 1, nameField);
+		pageContent.setWidget(2, 0, new Label("Last Name:"));
+		pageContent.setWidget(2, 1, lastNameField);
+		pageContent.setWidget(3, 0, new Label("Date of Birth:"));
+		pageContent.setWidget(3, 1, birthField);
+		//pageContent.setWidget(3, 0, new Label("Birth Country:"));
+		
+		RootPanel.get().add(pageContent);
+		
 	}
 	
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-	
-		navPanel.add(prevButton);
-		navPanel.add(nextButton);
-		
-		firstPage(true);
-		RootPanel.get().add(navPanel);
+		PAGE = 1;
+		updateView();
 	}
 }
