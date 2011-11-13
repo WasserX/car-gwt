@@ -1,18 +1,24 @@
 package formGWT.client;
 
+
 import formGWT.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -24,6 +30,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 /**
@@ -36,7 +43,7 @@ public class FormGWT implements EntryPoint {
 	private int PAGE = 1;
 	
 	//First Page
-	private Grid pageContent = new Grid(9, 2);
+	private Grid firstPageContent = new Grid(9, 2);
 	private TextBox nameField = new TextBox();
 	private TextBox lastNameField = new TextBox();
 	private TextBox birthField = new TextBox();
@@ -45,6 +52,10 @@ public class FormGWT implements EntryPoint {
 	private RadioButton maleRadioButton = new RadioButton("gender","Male");
 	private RadioButton femaleRadioButton = new RadioButton("gender","Female");
 	private TextBox emailField = new TextBox();
+	
+	//Second Page
+	private Grid secondPageContent = new Grid(3,2);
+	private ListBox filmNameField = new ListBox();
 	
 	private HorizontalPanel navPanel = new HorizontalPanel();
 	
@@ -120,30 +131,49 @@ public class FormGWT implements EntryPoint {
 	/**
 	 * Sets up the first page of the form.
 	 */
+	@SuppressWarnings("deprecation")
 	private void showFirstPage() {
 		Label cityLabel = new Label("Hometown:");
 		Label genderLabel = new Label("Gender:");
 		Label mailLabel = new Label("E-mail Address:");
 	
 		//Form contents
-		pageContent.clear();
-		pageContent.setWidget(0, 0, new Label("First Page"));
-		pageContent.setWidget(1, 0, new Label("Name:"));
-		pageContent.setWidget(1, 1, nameField);
-		pageContent.setWidget(2, 0, new Label("Last Name:"));
-		pageContent.setWidget(2, 1, lastNameField);
-		pageContent.setWidget(3, 0, new Label("Date of Birth:"));
-		pageContent.setWidget(3, 1, birthField);
-		pageContent.setWidget(4, 0, new Label("Birth Country:"));
-		pageContent.setWidget(4, 1, birthCountryField);
-		pageContent.setWidget(5, 0, new Label("Birth Place:"));
-		pageContent.setWidget(5, 1, birthPlaceField);
-		pageContent.setWidget(6, 0, maleRadioButton);
-		pageContent.setWidget(6, 1, femaleRadioButton);
-		pageContent.setWidget(7, 0, new Label("E-mail:"));
-		pageContent.setWidget(7, 1, emailField);
+		firstPageContent.clear();
+		firstPageContent.setWidget(0, 0, new Label("First Page"));
+		firstPageContent.setWidget(1, 0, new Label("Name:"));
+		firstPageContent.setWidget(1, 1, nameField);
+		firstPageContent.setWidget(2, 0, new Label("Last Name:"));
+		firstPageContent.setWidget(2, 1, lastNameField);
+		firstPageContent.setWidget(3, 0, new Label("Date of Birth:"));
+		firstPageContent.setWidget(3, 1, birthField);
+		birthField.addChangeHandler(new ChangeHandler(){
+			public void onChange(ChangeEvent event) {
+				if(!birthField.getText().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)[0-9][0-9]"))
+				{
+					Window.alert("Date format is invalid!");
+					birthField.setText("");		
+				}
+			}
+        });
+		firstPageContent.setWidget(4, 0, new Label("Birth Country:"));
+		firstPageContent.setWidget(4, 1, birthCountryField);
+		firstPageContent.setWidget(5, 0, new Label("Birth Place:"));
+		firstPageContent.setWidget(5, 1, birthPlaceField);
+		firstPageContent.setWidget(6, 0, maleRadioButton);
+		firstPageContent.setWidget(6, 1, femaleRadioButton);
+		firstPageContent.setWidget(7, 0, new Label("E-mail:"));
+		firstPageContent.setWidget(7, 1, emailField);
+		emailField.addChangeHandler(new ChangeHandler(){
+			public void onChange(ChangeEvent event) {
+				if(!emailField.getText().matches("[a-z0-9._%-]+@[a-z0-9.-]+"))
+				{
+					Window.alert("Email format is invalid!");
+					emailField.setText("");		
+				}
+			}
+        });
 		
-		RootPanel.get().add(pageContent);
+		RootPanel.get().add(firstPageContent);
 		
 	}
 	
@@ -151,22 +181,14 @@ public class FormGWT implements EntryPoint {
 	 * Sets up the second page of the form.
 	 */
 	private void showSecondPage() {
-		Label cityLabel = new Label("Hometown:");
-		Label genderLabel = new Label("Gender:");
-		Label mailLabel = new Label("E-mail Address:");
 	
 		//Form contents
-		pageContent.clear();
-		pageContent.setWidget(0, 0, new Label("Second Page"));
-		pageContent.setWidget(1, 0, new Label("Name:"));
-		pageContent.setWidget(1, 1, nameField);
-		pageContent.setWidget(2, 0, new Label("Last Name:"));
-		pageContent.setWidget(2, 1, lastNameField);
-		pageContent.setWidget(3, 0, new Label("Date of Birth:"));
-		pageContent.setWidget(3, 1, birthField);
-		//pageContent.setWidget(3, 0, new Label("Birth Country:"));
+		secondPageContent.clear();
+		secondPageContent.setWidget(0, 0, new Label("Second Page"));
+		secondPageContent.setWidget(1, 0, new Label("Film Name:"));
+		secondPageContent.setWidget(1, 1, filmNameField);
 		
-		RootPanel.get().add(pageContent);
+		RootPanel.get().add(secondPageContent);
 		
 	}
 	
