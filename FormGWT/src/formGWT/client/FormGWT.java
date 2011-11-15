@@ -59,6 +59,9 @@ public class FormGWT implements EntryPoint {
 	private Grid secondPageContent = new Grid(3,2);
 	private ListBox filmNameField = new ListBox();
 	
+	//Third Page
+	private Grid thirdPageContent = new Grid(9,2);
+	
 	private HorizontalPanel navPanel = new HorizontalPanel();
 	
 	/**
@@ -80,6 +83,7 @@ public class FormGWT implements EntryPoint {
 	 * 
 	 */
 	private void updateView() {	
+		
 		switch(PAGE){
 		case 1:
 			prevButton.setEnabled(false);
@@ -88,8 +92,9 @@ public class FormGWT implements EntryPoint {
 				
 				@Override
 				public void onClick(ClickEvent event) {
+					PAGE++;
+					RootPanel.get().remove(firstPageContent);
 					updateView();
-					PAGE++;			
 				}
 			});
 			showFirstPage();
@@ -100,23 +105,35 @@ public class FormGWT implements EntryPoint {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					updateView();
 					PAGE--;
+					RootPanel.get().remove(secondPageContent);
+					updateView();
 				}
 			});
-			nextButton.setEnabled(false);
+			nextButton.setEnabled(true);
 			nextButton.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
+					PAGE++;
+					RootPanel.get().remove(secondPageContent);
 					updateView();
-					//PAGE++;
 				}
 			});
 			showSecondPage();
 			break;
 		case 3:
-			//TODO: Case 3
+			prevButton.setEnabled(true);
+			prevButton.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					PAGE--;
+					RootPanel.get().remove(thirdPageContent);
+					updateView();
+				}
+			});
+			nextButton.setEnabled(false);
+			showThirdPage();
 			break;
 		}
 		showNavigation();		
@@ -176,7 +193,7 @@ public class FormGWT implements EntryPoint {
 				}
 			}
         });
-		
+
 		RootPanel.get().add(firstPageContent);
 		
 	}
@@ -192,7 +209,52 @@ public class FormGWT implements EntryPoint {
 		secondPageContent.setWidget(1, 0, new Label("Film Name:"));
 		secondPageContent.setWidget(1, 1, filmNameField);
 		
-		RootPanel.get().add(secondPageContent);
+		RootPanel.get().add(secondPageContent);		
+	}
+	
+	/**
+	 * Sets up the first page of the form.
+	 */
+	@SuppressWarnings("deprecation")
+	private void showThirdPage() {
+	
+		//Form contents
+		thirdPageContent.clear();
+		thirdPageContent.setWidget(0, 0, new Label("Third Page"));
+		thirdPageContent.setWidget(1, 0, new Label("Name:"));
+		thirdPageContent.setWidget(1, 1, new Label(nameField.getText()));
+		thirdPageContent.setWidget(2, 0, new Label("Last Name:"));
+		thirdPageContent.setWidget(2, 1, new Label(lastNameField.getText()));
+		thirdPageContent.setWidget(3, 0, new Label("Date of Birth:"));
+		thirdPageContent.setWidget(3, 1, new Label(birthField.getText()));
+		thirdPageContent.setWidget(4, 0, new Label("Birth Country:"));
+		
+		int selectedCountryIndex = birthCountryField.getSelectedIndex();
+		if(selectedCountryIndex > 0)
+			thirdPageContent.setWidget(4, 1, new Label(birthCountryField.getItemText(selectedCountryIndex)));
+		else
+			thirdPageContent.setWidget(4, 1, new Label("Undefined"));
+		
+		thirdPageContent.setWidget(5, 0, new Label("Birth Place:"));
+		
+		int selectedPlaceIndex = birthPlaceField.getSelectedIndex();
+		if(selectedPlaceIndex > 0)
+			thirdPageContent.setWidget(5, 1, new Label(birthPlaceField.getItemText(selectedPlaceIndex)));
+		else
+			thirdPageContent.setWidget(5, 1, new Label("Undefined"));
+		
+		thirdPageContent.setWidget(6, 0, new Label("Gender:"));
+		
+		if(maleRadioButton.getValue())
+			thirdPageContent.setWidget(6, 1, new Label("Male"));
+		else if(femaleRadioButton.getValue())
+			thirdPageContent.setWidget(6, 1, new Label("Female"));
+		else
+			thirdPageContent.setWidget(6, 1, new Label("Undefined"));
+		thirdPageContent.setWidget(7, 0, new Label("E-mail:"));
+		thirdPageContent.setWidget(7, 1, new Label(emailField.getText()));
+
+		RootPanel.get().add(thirdPageContent);
 		
 	}
 	
