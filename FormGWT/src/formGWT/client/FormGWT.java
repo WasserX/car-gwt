@@ -1,6 +1,8 @@
 package formGWT.client;
 
 
+import formGWT.client.internationalization.TextTools;
+import formGWT.client.internationalization.Texts;
 import formGWT.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -136,6 +138,8 @@ public class FormGWT implements EntryPoint {
 		Label cityLabel = new Label("Hometown:");
 		Label genderLabel = new Label("Gender:");
 		Label mailLabel = new Label("E-mail Address:");
+		
+		Texts constants = GWT.create(Texts.class);	
 	
 		//Form contents
 		firstPageContent.clear();
@@ -156,7 +160,7 @@ public class FormGWT implements EntryPoint {
 			}
         });
 		firstPageContent.setWidget(4, 0, new Label("Birth Country:"));
-		firstPageContent.setWidget(4, 1, birthCountryField);
+		firstPageContent.setWidget(4, 1, TextTools.fillCountries(birthCountryField));
 		firstPageContent.setWidget(5, 0, new Label("Birth Place:"));
 		firstPageContent.setWidget(5, 1, birthPlaceField);
 		firstPageContent.setWidget(6, 0, maleRadioButton);
