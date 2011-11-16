@@ -3,6 +3,7 @@ package formGWT.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -163,8 +164,33 @@ public class FormGWT implements EntryPoint {
         });
 		firstPageContent.setWidget(4, 0, new Label(constants.birthCountry()));
 		firstPageContent.setWidget(4, 1, TextTools.fillCountries(birthCountryField));
+		birthCountryField.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				int selectedItem = birthCountryField.getSelectedIndex();
+				if(selectedItem < 0) return;
+				birthPlaceField.clear();
+				Texts constants = GWT.create(Texts.class);
+				//Because the items are in alphabetical order, we use their index that wont change
+				switch(selectedItem){
+				case 0: //Argentina
+					birthPlaceField.addItem(constants.rosario()); break;
+				case 1: //Brazil
+					birthPlaceField.addItem(constants.sao()); break;
+				case 2: //France
+					birthPlaceField.addItem(constants.versailles()); break;
+				case 3: //Italy
+					birthPlaceField.addItem(constants.turin()); break;
+				case 4: //USA
+					birthPlaceField.addItem(constants.philadelphia()); break;
+				default:
+					birthPlaceField.addItem(constants.undefined());
+				}
+			}
+		});
 		firstPageContent.setWidget(5, 0, new Label(constants.birthPlace()));
 		firstPageContent.setWidget(5, 1, birthPlaceField);
+		//TODO Fire an event to make the default list linked to the countries list.
 		firstPageContent.setWidget(6, 0, maleRadioButton);
 		firstPageContent.setWidget(6, 1, femaleRadioButton);
 		firstPageContent.setWidget(7, 0, new Label(constants.email()));

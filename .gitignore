@@ -1,0 +1,5 @@
+FormGWT/war/WEB-INF/classes/formGWT/FormGWT.gwt.xml
+FormGWT/war/formgwt/*
+FormGWT/.gwt/
+FormGWT/gwt-unitCache/
+FormGWT/war/WEB-INF/classes/*
