@@ -77,6 +77,16 @@ public interface Texts extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Female")
   @Key("female")
   String female();
+  
+  
+  /**
+   * Translated "Film Name".
+   * 
+   * @return translated "Film Name"
+   */
+  @DefaultStringValue("Film Name")
+  @Key("filmName")
+  String filmName();
 
   /**
    * Translated "First Page".

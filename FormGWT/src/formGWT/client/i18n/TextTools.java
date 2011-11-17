@@ -15,6 +15,7 @@ public class TextTools {
 	public static com.google.gwt.user.client.ui.ListBox fillCountries(
 			com.google.gwt.user.client.ui.ListBox inputList) {
 		Texts constants = GWT.create(Texts.class);
+		inputList.addItem("");
 		inputList.addItem(constants.argentina());
 		inputList.addItem(constants.brazil());
 		inputList.addItem(constants.france());
