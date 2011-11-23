@@ -276,4 +276,36 @@ public interface Texts extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Versailles")
   @Key("versailles")
   String versailles();
+  
+  /**
+   * List of Movies
+   */
+  
+
+  /**
+   * Translated "Lord of the Rings".
+   * 
+   * @return translated "Lord of the Rings"
+   */
+  @DefaultStringValue("Lord Of The Rings - The Return Of The King")
+  @Key("lordOfTheRings")
+  String lordOfTheRings();
+  
+  /**
+   * Translated "Hangover".
+   * 
+   * @return translated "Hangover"
+   */
+  @DefaultStringValue("The Hangover")
+  @Key("hangover")
+  String hangover();
+  
+  /**
+   * Translated "Tron - Legacy".
+   * 
+   * @return translated "Tron - Legacy"
+   */
+  @DefaultStringValue("Tron - Legacy")
+  @Key("tron")
+  String tron();
 }

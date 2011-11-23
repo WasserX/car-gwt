@@ -24,5 +24,15 @@ public class TextTools {
 
 		return inputList;
 	}
+	
+	public static com.google.gwt.user.client.ui.ListBox fillMovies(
+			com.google.gwt.user.client.ui.ListBox inputList) {
+		Texts constants = GWT.create(Texts.class);
+		inputList.addItem("");
+		inputList.addItem(constants.lordOfTheRings());
+		inputList.addItem(constants.hangover());
+		inputList.addItem(constants.tron());
+		return inputList;
+	}
 
 }

@@ -134,7 +134,7 @@ public class FormGWT implements EntryPoint, ClickHandler {
 		nextButton.addClickHandler(this);
 		
 		page1 = new Page1(9,2);
-		page2 = new Page2(3,2);
+		page2 = new Page2(2,1);
 		page3 = new Page3(9,2,page1);
 		
 		updateView();

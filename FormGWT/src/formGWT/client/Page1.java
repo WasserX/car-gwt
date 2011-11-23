@@ -84,7 +84,7 @@ public class Page1 extends Grid{
 					case 4: //USA
 						birthPlaceField.addItem(constants.philadelphia()); break;
 					default:
-						birthPlaceField.addItem(constants.undefined());
+						birthPlaceField.addItem("");
 					}
 				}
 			});
@@ -142,7 +142,7 @@ public class Page1 extends Grid{
 			if(selectedCountryIndex > 0)
 				return birthCountryField.getItemText(selectedCountryIndex);
 			else
-				return constants.undefined();
+				return "";
 		}
 
 		public String getBirthPlace()
@@ -151,7 +151,7 @@ public class Page1 extends Grid{
 			if(selectedPlaceIndex > 0)
 				return birthPlaceField.getItemText(selectedPlaceIndex);
 			else
-				return constants.undefined();
+				return "";
 		}
 		
 		public String getGender()
@@ -161,7 +161,7 @@ public class Page1 extends Grid{
 			else if(femaleRadioButton.getValue())
 				return constants.female();
 			else
-				return constants.undefined();
+				return "";
 		}
 		
 		public String getEmail()
