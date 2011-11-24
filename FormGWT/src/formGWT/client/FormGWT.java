@@ -33,6 +33,7 @@ public class FormGWT implements EntryPoint, ClickHandler {
 	private Page1 page1;
 	private Page2 page2;
 	private Page3 page3;
+	private Page4 page4;
 	
 
 	private HorizontalPanel navPanel = new HorizontalPanel();
@@ -72,11 +73,18 @@ public class FormGWT implements EntryPoint, ClickHandler {
 			break;
 		case 3:
 			prevButton.setEnabled(true);
-			nextButton.setEnabled(false);
+			nextButton.setEnabled(true);
 			page3.updatePage();
 			RootPanel.get().add(page3);
 			break;
-		}		
+		case 4:
+			prevButton.setEnabled(true);
+			nextButton.setEnabled(false);
+			page4.updatePage();
+			RootPanel.get().add(page4);
+			break;		
+		}	
+		
 		showNavigation();
 	}
 	
@@ -104,6 +112,10 @@ public class FormGWT implements EntryPoint, ClickHandler {
 				PAGE--;
 				RootPanel.get().remove(page3);
 				break;
+			case 4:
+				PAGE--;
+				RootPanel.get().remove(page4);
+				break;
 			}		
 		}
 		else //nextButton
@@ -118,6 +130,10 @@ public class FormGWT implements EntryPoint, ClickHandler {
 				RootPanel.get().remove(page2);
 				break;
 			case 3:
+				PAGE++;
+				RootPanel.get().remove(page3);
+				break;
+			case 4:
 				break;
 			}	
 		}
@@ -136,6 +152,7 @@ public class FormGWT implements EntryPoint, ClickHandler {
 		page1 = new Page1(9,2);
 		page2 = new Page2(2,1);
 		page3 = new Page3(9,2,page1);
+		page4 = new Page4(2,1);
 		
 		updateView();
 	}

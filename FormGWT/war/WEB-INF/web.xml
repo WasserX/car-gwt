@@ -6,14 +6,14 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>formGWT.server.GreetingServiceImpl</servlet-class>
+   <servlet>
+    <servlet-name>Page4ServiceImpl</servlet-name>
+    <servlet-class>formGWT.server.Page4ServiceImpl</servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/formgwt/greet</url-pattern>
+    <servlet-name>Page4ServiceImpl</servlet-name>
+    <url-pattern>/formgwt/Page4</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
